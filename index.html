@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="Bmwport" content="width=device-width, initial-scale=1.0"/>
+  <title>Precision. Power. Ported.</title>
+  <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1340286601502261280/1372985644703547452/27c9a978-b122-40f6-b64a-216ba7c2f5ae.png?ex=68296cc6&is=68281b46&hm=4d1a2df30bd0120efaf3f5d3d09a75bd3209b9d27ad8eea1bac5dc542d1b6a00&" />
+  <style>
+    :root {
+      --primary-color: #88a0bb;
+      --secondary-color: #1b263b;
+      --accent-color: #fafeff;
+      --text-color: #e0f7fa;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--secondary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--accent-color);
+      margin-left: 1.5rem;
+      text-decoration: none;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section h2 {
+      color: var(--accent-color);
+    }
+
+    .search-bar,
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .search-bar input {
+      width: 100%;
+      max-width: 500px;
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      outline: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .filter-buttons button {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: 1px solid var(--accent-color);
+      padding: 0.5rem 1rem;
+      margin: 0.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .filter-buttons button.active {
+      background-color: var(--accent-color);
+      color: #000;
+    }
+
+    .game-card {
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .game-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 5px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .game-info {
+      flex: 1;
+    }
+
+    .game-card h3 {
+      margin-top: 0;
+    }
+
+    .game-card p {
+      margin: 0.5rem 0;
+    }
+
+    .game-card a {
+      color: white;
+      background-color: var(--accent-color);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    a.button {
+      background-color: var(--accent-color);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    nav a.active {
+      color: var(--accent-color);
+      font-weight: bold;
+      border-bottom: 2px solid var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      nav a {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+      .game-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+      }
+      .game-card img {
+        margin-bottom: 1rem;
+        width: 100px;
+        height: 100px;
+      }
+      .search-bar input {
+        width: 90%;
+        font-size: 1rem;
+      }
+      .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .filter-buttons button {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+      }
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .faq-question {
+        font-size: 1rem;
+      }
+      .crypto-address {
+        font-size: 0.85rem;
+        word-break: break-all;
+      }
+    }
+
+    .game-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    .button,
+    .copy-icon,
+    .filter-buttons button,
+    .game-card a {
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .button:hover,
+    .copy-icon:hover,
+    .filter-buttons button:hover,
+    .game-card a:hover {
+      transform: scale(1.05);
+      background-color: #008ecc;
+    }
+
+    .game-card,
+    .button,
+    .copy-icon,
+    .filter-buttons button,
+    input[type="submit"],
+    input[type="text"],
+    .crypto-address,
+    .discord-card,
+    footer,
+    form,
+    #noResults {
+      border-radius: 12px;
+    }
+
+    .discord-card,
+    form,
+    .crypto-address {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d1b2a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #618ab4;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4e7ba4;
+    }
+
+    .faq-box {
+      background-color: #0d1b2a;
+      border-radius: 15px;
+      padding: 2rem;
+    }
+    .faq-item {
+      background-color: #1b263b;
+      margin: 0.75rem 0;
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .faq-item:hover {
+      background-color: #233047;
+    }
+    .faq-question {
+      font-weight: bold;
+      color: #e0f7fa;
+    }
+    .faq-answer {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #121e2f;
+      border-radius: 8px;
+      color: #cfd8dc;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .donate-box {
+      background-color: #0d1b2a;
+      padding: 2rem;
+      border-radius: 15px;
+    }
+    .crypto-row {
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+    }
+    .crypto-address {
+      margin-top: 0.5rem;
+      background-color: #1b263b;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #cfd8dc;
+    }
+    .copy-icon {
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .copy-icon:hover {
+      background-color: #008ecc;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-color);
+      margin: 4px 0;
+    }
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: var(--secondary-color);
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        padding: 1rem;
+        border-radius: 10px;
+        z-index: 999;
+      }
+      nav.show {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    nav a {
+      color: var(--text-color);
+      margin: 0 1rem;
+      position: relative;
+      text-decoration: none;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .pagination {
+  display: flex;
+  justify-content: center;
+  margin: 1; /* Remove all margin */
+  padding: 10px 0; /* Small padding instead of margin */
+  gap: 0.5rem;
+  background-color: var(--primary-color);
+  position: relative;
+  top: -20px; /* Pull up closer to games */
+}
+    
+    .pagination button {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: 1px solid var(--accent-color);
+      padding: 0.5rem 1rem;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination button.active {
+      background-color: var(--accent-color);
+      color: #000;
+      font-weight: bold;
+    }
+    
+    .pagination button:hover:not(.active) {
+      background-color: #233047;
+    }
+    
+    .games-container {
+  padding-bottom: 0; /* Remove any extra padding */
+}
+    
+.page-indicator {
+  text-align: center;
+  margin: -15px 0 10px 0; /* Adjusted negative margin to pull up */
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+  </style>
+
+  <!-- Open Graph / Discord / Facebook -->
+  <meta property="og:title" content="Bmwport Ultimate Gaming Destination" />
+  <meta property="og:description" content="Bmwport gives you instant access to free, pre-installed Steam games. Enjoy multiplayer, the latest updates, no hassle, and all genres, on one platform!" />
+  <meta property="og:image" content="https://cdn.discordapp.com/attachments/1340286601502261280/1372985644703547452/27c9a978-b122-40f6-b64a-216ba7c2f5ae.png?ex=68296cc6&is=68281b46&hm=4d1a2df30bd0120efaf3f5d3d09a75bd3209b9d27ad8eea1bac5dc542d1b6a00&" />
+  <meta property="og:url" content="https://discord.gg/tkZydjRp" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PatchPort・Your Ultimate Gaming Destination" />
+  <meta name="twitter:description" content="PatchPort gives you instant access to free, pre-installed Steam games. Enjoy multiplayer, the latest updates, no hassle, and all genres, on one platform!" />
+  <meta name="twitter:image" content="https://cdn.discordapp.com/attachments/1340286601502261280/1372985644703547452/27c9a978-b122-40f6-b64a-216ba7c2f5ae.png?ex=68296cc6&is=68281b46&hm=4d1a2df30bd0120efaf3f5d3d09a75bd3209b9d27ad8eea1bac5dc542d1b6a00&" />
+
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    });
+  </script>
+</head>
+<body id="top">
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <img src="https://cdn.discordapp.com/attachments/1340286601502261280/1372980758871933068/Add_a_he.png?ex=68296839&is=682816b9&hm=8513fcb372eaa5c72af016a579d33b084c1eaca8e965b11d49cc7e2395970d46&" alt="logo" style="height: 40px; margin-right: 10px;" />
+      <a href="#" class="logo">Bmwport</a>
+    </div>
+    <nav>
+      <a href="#games">Games</a>
+      <a href="#faq">FAQ</a>
+      <a href="#changelog">Updates</a>
+      <a href="#donate">Donate</a>
+      <a href="https://discord.gg/tkZydjRp" target="_blank">Discord</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Bmwport</h1>
+    <p>Your Ultimate Gaming Destination</p>
+  </section>
+
+  <section id="games" class="section">
+    <h2 style="text-align: center; color: var(--accent-color); font-size: 2rem; margin-bottom: 2rem;">Games</h2>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by name or description...">
+    </div>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="multiplayer">Multiplayer</button>
+      <button class="filter-btn" data-filter="singleplayer">Singleplayer</button>
+    </div>
+
+    <!-- Games container -->
+    <div class="games-container" id="gamesContainer">
+      <!-- Game cards will be inserted here by JavaScript -->
+    </div>
+    
+    <!-- Pagination controls -->
+    <div class="pagination" id="paginationControls">
+      <!-- Pagination buttons will be inserted here by JavaScript -->
+    </div>
+    <div class="page-indicator" id="pageIndicator">Page 1 of 2</div>
+  </section>
+
+  <section id="faq" class="section">
+    <h2 style="text-align: center; color: var(--accent-color); font-size: 2rem; margin-bottom: 2rem;">Frequently Asked Questions</h2>
+    <div class="faq-box">
+      <div class="faq-item" onclick="toggleFaq(this)" data-aos="fade-up">
+        <div class="faq-question">How do I download games?</div>
+        <div class="faq-answer">Click on any game card to be redirected to the download page containing ads.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" data-aos="fade-up">
+        <div class="faq-question">Are the games safe to download?</div>
+        <div class="faq-answer">Yes, all games are verified and scanned for malware before being added to our platform.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" data-aos="fade-up">
+        <div class="faq-question">Why do you include ads?</div>
+        <div class="faq-answer">This helps to support the platform and ensures we can continue providing games for free.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" data-aos="fade-up">
+        <div class="faq-question">What is the folder password?</div>
+        <div class="faq-answer">The folder password is "patchport".</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="changelog" class="section" data-aos="fade-up">
+    <h2 style="text-align: center; color: var(--accent-color); font-size: 2rem; margin-bottom: 2rem;">Recent Updates</h2>
+    <ul style="list-style-type: none; padding: 0; max-width: 800px; margin: 0 auto; color: var(--text-color);">
+      <li style="background-color: #1b263b; margin: 0.5rem 0; padding: 1rem; border-radius: 8px;" data-aos="fade-up" data-aos-delay="100">🆕 <strong>[May 5, 2025]</strong> Added 10 New Games!</li> 
+      <li style="background-color: #1b263b; margin: 0.5rem 0; padding: 1rem; border-radius: 8px;" data-aos="fade-up" data-aos-delay="200">🆕 <strong>[May 4, 2025]</strong> Added 5 New Games!</li>
+      <li style="background-color: #1b263b; margin: 0.5rem 0; padding: 1rem; border-radius: 8px;" data-aos="fade-up" data-aos-delay="300">🆕 <strong>[May 3, 2025]</strong> Added "Portal 2"</li>
+    </ul>
+  </section>
+
+  <section id="donate" class="section">
+    <h2 style="text-align: center; color: var(--accent-color); font-size: 2rem; margin-bottom: 2rem;">Support PatchPort</h2>
+    <p style="text-align: center; margin-bottom: 2rem;">Help keep PatchPort running by donating cryptocurrency</p>
+    <div class="donate-box">
+      <div class="crypto-row" data-aos="fade-up">
+        <span>Litecoin (LTC)</span>
+        <div class="crypto-address">LdkhUxTZGRwnnN3PSxFEb98PFP14x9nsZs <button class="copy-icon" onclick="copyToClipboard(this)">Copy</button></div>
+      </div>
+      <div class="crypto-row" data-aos="fade-up">
+        <span>Bitcoin (BTC)</span>
+        <div class="crypto-address">bc1qe7xugwf4ecaw4cy00lc57x33z0tjhqhrafyqxf <button class="copy-icon" onclick="copyToClipboard(this)">Copy</button></div>
+      </div>
+      <div class="crypto-row" data-aos="fade-up">
+        <span>Ethereum (ETH)</span>
+        <div class="crypto-address">0x80a30E2c72c84A84B9d47f4C29F783DCB3790AD3 <button class="copy-icon" onclick="copyToClipboard(this)">Copy</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="community" class="section" data-aos="fade-up">
+    <h2 style="text-align: center; color: var(--accent-color); font-size: 2rem; margin-bottom: 1rem;">Discord Community</h2>
+    <div style="background-color: #1b263b; border-radius: 12px; padding: 2rem; max-width: 600px; margin: auto; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; gap: 1rem">
+      <div id="discord-widget" style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 8px; height: 8px; background-color: #3ba55c; border-radius: 50%;"></div>
+          <span id="member-count" style="color: var(--text-color); font-size: 1.1rem;">
+            <span id="online-count">...</span> online • 
+            <span id="total-count">...</span> members
+          </span>
+        </div>
+      </div>
+      <p style="color: var(--text-color); font-size: 1.1rem; margin-bottom: 1.5rem;">Connect with other gamers, get support, and stay up to date with new releases.</p>
+      <a class="button" href="https://discord.gg/tkZydjRp" target="_blank" style="background-color: #7289DA; color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background 0.3s;">
+        Join Our Discord
+      </a>
+    </div>
+  </section>
+
+  <footer style="background-color: var(--secondary-color); color: var(--text-color); text-align: center; padding: 1rem; font-size: 0.9rem; margin-top: 3rem;">
+    &copy; 2025 PatchPort. All rights reserved. <a href="#top" style="color: var(--accent-color); text-decoration: none;">Back to top</a>
+  </footer>
+
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+    style="position: fixed; bottom: 1rem; left: 1rem; padding: 0.6rem 1rem; font-weight: bold; background: var(--accent-color); color: #000; border: none; border-radius: 10px; z-index: 999; font-family: 'Segoe UI', sans-serif; font-size: 1rem;">
+    ⬆️ Top
+  </button>
+
+  <script>
+    // Game data
+    const games = [
+      {
+        title: "Schedule I",
+        description: "Build your empire as a drug dealer in a gritty, story-driven open-world crime simulator.",
+        tags: "multiplayer",
+        image: "schedule1.png",
+        link: "https://tpi.li/F9gEZceA"
+      },
+      {
+        title: "Sons Of The Forest",
+        description: "Survive a deadly island filled with mutants using crafting, co-op, and intense exploration mechanics.",
+        tags: "multiplayer",
+        image: "sons-of-the-forest.png",
+        link: "https://tpi.li/SonsOfTheForest"
+      },
+      {
+        title: "Ready Or Not",
+        description: "Lead a SWAT team in realistic tactical missions focused on strategy, teamwork, and precision.",
+        tags: "multiplayer",
+        image: "ready-or-not.png",
+        link: "https://tpi.li/ReadyOrNot"
+      },
+      {
+        title: "Raft",
+        description: "Survive at sea by gathering resources, expanding your raft, and exploring with friends in co-op.",
+        tags: "multiplayer",
+        image: "raft.png",
+        link: "https://tpi.li/Raft"
+      },
+      {
+        title: "Euro Truck Simulator 2",
+        description: "Drive across Europe delivering cargo, customizing trucks, and managing your own growing transport business.",
+        tags: "multiplayer",
+        image: "ets2.png",
+        link: "https://tpi.li/ETS2PP"
+      },
+      {
+        title: "The Forest",
+        description: "Survive a mysterious forest after a plane crash, fighting cannibals and uncovering hidden horrors.",
+        tags: "multiplayer",
+        image: "the-forest.png",
+        link: "https://tpi.li/LeQEch"
+      },
+      {
+        title: "Thief Simulator",
+        description: "Plan, sneak, and steal your way through neighborhoods as a professional, upgradeable thief.",
+        tags: "singleplayer",
+        image: "thief-simulator.png",
+        link: "https://tpi.li/X6djvbVMDI6"
+      },
+      {
+        title: "Portal 2",
+        description: "A puzzle-platform game that uses a portal gun to solve spatial puzzles and advance through the levels.",
+        tags: "multiplayer",
+        image: "portal2.jpg",
+        link: "https://tpi.li/uE0P3Rg9jAi"
+      },
+      {
+        title: "ULTRAKILL",
+        description: "Fast-paced shooting, blood-fueled health, and nonstop action in a brutal retro-style arena.",
+        tags: "singleplayer",
+        image: "ULTRAKILL.jpg",
+        link: "https://tpi.li/uG78"
+      },
+      {
+        title: "Elden Ring",
+        description: "Explore a dark fantasy world, battle deadly foes, and uncover ancient secrets.",
+        tags: "singleplayer",
+        image: "Elden-Ring.jpg",
+        link: "https://tpi.li/EldenRingPP"
+      },
+      {
+        title: "Golf With Your Friends",
+        description: "Chaotic mini-golf with friends across crazy, trap-filled courses.",
+        tags: "multiplayer",
+        image: "Golf-With-Your-Friends.jpg",
+        link: "https://tpi.li/GWYF"
+      },
+      {
+        title: "Geometry Dash",
+        description: "Dodge obstacles to the beat in a tough, rhythm-based platformer.",
+        tags: "singleplayer",
+        image: "Geometry-Dash.jpg",
+        link: "https://tpi.li/GraveDigger"
+      },
+      {
+        title: "Subnautica",
+        description: "Survive, craft, and dive deep into an alien ocean full of mystery.",
+        tags: "singleplayer",
+        image: "Subnautica.jpg",
+        link: "https://tpi.li/0PmqL2"
+      },
+      {
+        title: "Half-Life 2",
+        description: "A legendary sci-fi FPS where you fight the alien Combine with physics-based puzzles and gripping storytelling.",
+        tags: "singleplayer",
+        image: "half-life2.jpg",
+        link: "https://tpi.li/m5U2b1lePB"
+      },
+      {
+        title: "City Car Driving",
+        description: "A realistic driving simulator focused on road rules, weather, and traffic for training or casual cruising.",
+        tags: "singleplayer",
+        image: "City Car Driving.jpg",
+        link: "https://tpi.li/d3qQ00d7gUi"
+      },
+      {
+        title: "Hotline Miami",
+        description: "A brutal top-down shooter with neon aesthetics, intense action, and a mind-bending story set in 1989 Miami.",
+        tags: "singleplayer",
+        image: "Hotline Miami.jpg",
+        link: "https://tpi.li/92ZJk7PAAz"
+      },
+      {
+        title: "Hotline Miami 2: Wrong Number",
+        description: "The chaotic sequel with more violence, darker storytelling, and multiple characters across intertwining timelines.",
+        tags: "singleplayer",
+        image: "Hotline Miami 2.jpg",
+        link: "https://tpi.li/ypr9AU"
+      },
+      {
+        title: "Internet Cafe Simulator 2",
+        description: "Build, customize, and protect your internet café in a chaotic world of customers, upgrades, and shady decisions.",
+        tags: "multiplayer",
+        image: "Internet Cafe Simulator 2.jpg",
+        link: "https://tpi.li/Bi7wTH3"
+      },
+      {
+        title: "My Summer Car",
+        description: "Build and survive with your own car in 1990s Finland while managing thirst, hunger, and permadeath.",
+        tags: "singleplayer",
+        image: "My Summer Car.jpg",
+        link: "https://tpi.li/8p6DtyNeIG"
+      },
+      {
+        title: "People Playground",
+        description: "A sandbox playground for experimenting with physics and destruction using ragdolls, tools, and dark creativity.",
+        tags: "singleplayer",
+        image: "People Playground.jpg",
+        link: "https://tpi.li/bgPs0"
+      },
+      {
+        title: "Saints Row 2",
+        description: "Rule the streets in this over-the-top open-world action game filled with chaos, gangs, and wild missions.",
+        tags: "singleplayer",
+        image: "Saints Row 2.jpg",
+        link: "https://tpi.li/rfgmHMJYeT"
+      },
+      {
+        title: "Thief Simulator 2",
+        description: "Sneak, steal, and scheme in a realistic stealth game where planning and timing are everything.",
+        tags: "singleplayer",
+        image: "Thief Simulator 2.png",
+        link: "https://tpi.li/3rsNC"
+      },
+    ];
+
+    // Initialize pagination
+    let currentPage = 1;
+    const gamesPerPage = 4;
+    let filteredGames = [...games];
+    let activeFilter = 'all';
+
+    // Render games
+    function renderGames() {
+      const gamesContainer = document.getElementById('gamesContainer');
+      const paginationControls = document.getElementById('paginationControls');
+      const pageIndicator = document.getElementById('pageIndicator');
+      
+      // Clear containers
+      gamesContainer.innerHTML = '';
+      paginationControls.innerHTML = '';
+      
+      // Calculate pagination
+      const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+      const startIndex = (currentPage - 1) * gamesPerPage;
+      const endIndex = Math.min(startIndex + gamesPerPage, filteredGames.length);
+      const gamesToShow = filteredGames.slice(startIndex, endIndex);
+
+      const minHeight = 70 + (gamesToShow.length * 100); // Adjust these values as needed
+      gamesContainer.style.minHeight = `${minHeight}px`;
+
+
+  
+      
+      // Render games
+      gamesToShow.forEach(game => {
+        const gameCard = document.createElement('div');
+        gameCard.className = 'game-card';
+        gameCard.setAttribute('data-tags', game.tags);
+        
+        gameCard.innerHTML = `
+          <img src="${game.image}" alt="${game.title}">
+          <div class="game-info">
+            <h3>${game.title}</h3>
+            <p>${game.description}</p>
+            <a href="${game.link}" target="_blank">Download</a>
+          </div>
+        `;
+        
+        gamesContainer.appendChild(gameCard);
+      });
+      
+      // Render pagination controls
+      if (totalPages > 1) {
+        // Previous button
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '← Previous';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderGames();
+            window.scrollTo({top: gamesContainer.offsetTop - 1, behavior: 'smooth'});
+          }
+        });
+        paginationControls.appendChild(prevButton);
+        
+        // Page buttons
+        for (let i = 1; i <= totalPages; i++) {
+          const pageButton = document.createElement('button');
+          pageButton.textContent = i;
+          pageButton.className = currentPage === i ? 'active' : '';
+          pageButton.addEventListener('click', () => {
+            currentPage = i;
+            renderGames();
+            window.scrollTo({top: gamesContainer.offsetTop - 100, behavior: 'smooth'});
+          });
+          paginationControls.appendChild(pageButton);
+        }
+        
+        // Next button
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next →';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderGames();
+            window.scrollTo({top: gamesContainer.offsetTop - 100, behavior: 'smooth'});
+          }
+        });
+        paginationControls.appendChild(nextButton);
+      }
+      
+      // Update page indicator
+      pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+    }
+
+    // FAQ Toggle
+    function toggleFaq(el) {
+      el.classList.toggle("active");
+    }
+
+    // Copy to Clipboard
+    function copyToClipboard(button) {
+      const addressDiv = button.closest('.crypto-address');
+      const address = addressDiv.childNodes[0].nodeValue.trim();
+      navigator.clipboard.writeText(address).then(() => {
+        button.textContent = "Copied!";
+        setTimeout(() => button.textContent = "Copy", 1500);
+      });
+    }
+
+    // Navigation Scroll
+    window.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll("nav a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    });
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const nav = document.querySelector("nav");
+      nav.classList.toggle("show");
+    }
+
+    // Search and Filter
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById('searchInput');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      
+      // Initial render
+      renderGames();
+
+      function applyFilters() {
+        const query = searchInput.value.toLowerCase();
+        
+        filteredGames = games.filter(game => {
+          const titleMatch = game.title.toLowerCase().includes(query);
+          const descMatch = game.description.toLowerCase().includes(query);
+          const tagMatch = activeFilter === 'all' || game.tags.includes(activeFilter);
+          
+          return (titleMatch || descMatch) && tagMatch;
+        });
+        
+        // Reset to first page when filters change
+        currentPage = 1;
+        renderGames();
+      }
+
+      searchInput.addEventListener('input', applyFilters);
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.filter-btn.active').classList.remove('active');
+          btn.classList.add('active');
+          activeFilter = btn.getAttribute('data-filter');
+          applyFilters();
+        });
+      });
+    });
+
+    // Discord member count
+    document.addEventListener('DOMContentLoaded', async function() {
+      const serverId = '1259085583506473030'; 
+      const onlineElement = document.getElementById('online-count');
+      const totalElement = document.getElementById('total-count');
+      const widgetElement = document.getElementById('discord-widget');
+
+      async function tryWidgetAPI() {
+        try {
+          const response = await fetch(`https://discord.com/api/guilds/${serverId}/widget.json`);
+          if (!response.ok) throw new Error('Widget failed');
+          const data = await response.json();
+          if (data.presence_count !== undefined && data.members !== undefined) {
+            return {
+              online: data.presence_count,
+              total: data.members.length
+            };
+          }
+        } catch (e) {
+          return null;
+        }
+      }
+
+      async function tryInviteAPI() {
+        try {
+          const response = await fetch('https://discord.com/api/v9/invites/patchport?with_counts=true');
+          if (!response.ok) throw new Error('Invite failed');
+          const data = await response.json();
+          if (data.approximate_presence_count !== undefined && data.approximate_member_count !== undefined) {
+            return {
+              online: data.approximate_presence_count,
+              total: data.approximate_member_count
+            };
+          }
+        } catch (e) {
+          return null;
+        }
+      }
+
+      const widgetData = await tryWidgetAPI() || await tryInviteAPI();
+
+      if (widgetData) {
+        onlineElement.textContent = widgetData.online;
+        totalElement.textContent = widgetData.total;
+      } else {
+        onlineElement.textContent = 'Many';
+        totalElement.textContent = '1000+';
+        widgetElement.style.opacity = '0.8';
+      }
+    });
+  </script>
+</body>
+</html>
