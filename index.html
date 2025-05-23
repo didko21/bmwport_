@@ -131,24 +131,53 @@
         <section id="featured-games">
             <h2>Featured Games</h2>
             
-            <div class="game-card">
-                <h3>Space Adventure</h3>
-                <p>A thrilling space exploration game with pixel art graphics.</p>
-                <p><strong>Genre:</strong> Adventure</p>
-                <p><strong>Platform:</strong> Windows, Mac</p>
-                <a href="#" class="btn">Download</a>
-                <a href="#" class="btn">View Details</a>
-            </div>
-            
-            <div class="game-card">
-                <h3>Zombie Survival</h3>
-                <p>Survive the zombie apocalypse in this action-packed game.</p>
-                <p><strong>Genre:</strong> Action, Survival</p>
-                <p><strong>Platform:</strong> Windows, Linux</p>
-                <a href="#" class="btn">Download</a>
-                <a href="#" class="btn">View Details</a>
-            </div>
-        </section>
+      // Games.jsx (React component)
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Games.css'; // Your CSS file
+
+function Games() {
+  // Sample game data - in a real app, this would come from an API
+  const games = [
+    {
+      id: 1,
+      title: "Internet cafe simulator 2",
+      description: "Survive the zombie apocalypse in this action-packed game.",
+      genre: "Action, Survival",
+      platforms: "Windows, Linux",
+      downloadLink: "https://drive.google.com/file/d/1cIxpWXwN7K3k2YFj_fMvoF_Yqt6-2HbZ/view?usp=drive_link",
+      detailLink: "/game/1"
+    },
+    {
+      id: 2,
+      title: "Space Adventure",
+      description: "Explore the galaxy in this epic space game.",
+      genre: "Adventure",
+      platforms: "Windows, Mac",
+      downloadLink: "/download/2",
+      detailLink: "/game/2"
+    }
+  ];
+
+  return (
+    <section className="container">
+      <h2>Available Games</h2>
+      
+      {games.map(game => (
+        <div className="game-card" key={game.id}>
+          <h3>{game.title}</h3>
+          <p>{game.description}</p>
+          <p><strong>Genre:</strong> {game.genre}</p>
+          <p><strong>Platform:</strong> {game.platforms}</p>
+          <Link to={game.downloadLink} className="btn">Download</Link>
+          <Link to={game.detailLink} className="btn">View Details</Link>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+export default Games;
         
         <section id="submit-game" style="display: none;">
             <h2>Submit Your Game</h2>
