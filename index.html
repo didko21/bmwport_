@@ -1,40 +1,238 @@
-// App.jsx or Bmwport.jsx
-
-import React from "react";
-import { motion } from "framer-motion";
-import { Gamepad2 } from "lucide-react";
-
-export default function Bmwport() {
-  return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 text-white p-8 flex flex-col items-center justify-center">
-      <motion.h1
-        className="text-5xl font-extrabold mb-6 text-center drop-shadow-xl"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Welcome to Bmwport 🎮
-      </motion.h1>
-
-      <motion.p
-        className="text-xl text-center mb-8 max-w-xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.3 }}
-      >
-        Bmwport is your ultimate destination to discover and post awesome free games. Dive into fun without spending a dime!
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-      >
-        <button className="flex items-center text-lg px-6 py-3 bg-white text-blue-600 hover:bg-gray-100 rounded-2xl shadow-lg font-semibold">
-          <Gamepad2 className="mr-2" /> Explore Games
-        </button>
-      </motion.div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameCite - Free Game Sharing Platform</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        
+        nav {
+            background: #e8491d;
+            color: #ffffff;
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        
+        .game-card {
+            background: #ffffff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .game-card h3 {
+            margin-top: 0;
+            color: #e8491d;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e8491d;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #333;
+        }
+        
+        footer {
+            background: #35424a;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        
+        /* Form styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>GameCite</h1>
+            <p>Share and discover free games</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Browse Games</a></li>
+                <li><a href="#">Submit Game</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="featured-games">
+            <h2>Featured Games</h2>
+            
+            <div class="game-card">
+                <h3>Space Adventure</h3>
+                <p>A thrilling space exploration game with pixel art graphics.</p>
+                <p><strong>Genre:</strong> Adventure</p>
+                <p><strong>Platform:</strong> Windows, Mac</p>
+                <a href="#" class="btn">Download</a>
+                <a href="#" class="btn">View Details</a>
+            </div>
+            
+            <div class="game-card">
+                <h3>Zombie Survival</h3>
+                <p>Survive the zombie apocalypse in this action-packed game.</p>
+                <p><strong>Genre:</strong> Action, Survival</p>
+                <p><strong>Platform:</strong> Windows, Linux</p>
+                <a href="#" class="btn">Download</a>
+                <a href="#" class="btn">View Details</a>
+            </div>
+        </section>
+        
+        <section id="submit-game" style="display: none;">
+            <h2>Submit Your Game</h2>
+            <form id="game-form">
+                <div class="form-group">
+                    <label for="game-title">Game Title</label>
+                    <input type="text" id="game-title" name="game-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="game-description">Description</label>
+                    <textarea id="game-description" name="game-description" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="game-genre">Genre</label>
+                    <select id="game-genre" name="game-genre" required>
+                        <option value="">Select a genre</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="puzzle">Puzzle</option>
+                        <option value="rpg">RPG</option>
+                        <option value="simulation">Simulation</option>
+                        <option value="strategy">Strategy</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Platforms</label>
+                    <div>
+                        <input type="checkbox" id="platform-windows" name="platform[]" value="windows">
+                        <label for="platform-windows">Windows</label>
+                        
+                        <input type="checkbox" id="platform-mac" name="platform[]" value="mac">
+                        <label for="platform-mac">Mac</label>
+                        
+                        <input type="checkbox" id="platform-linux" name="platform[]" value="linux">
+                        <label for="platform-linux">Linux</label>
+                        
+                        <input type="checkbox" id="platform-web" name="platform[]" value="web">
+                        <label for="platform-web">Web</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="game-file">Game File (ZIP)</label>
+                    <input type="file" id="game-file" name="game-file" accept=".zip" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="game-image">Screenshot</label>
+                    <input type="file" id="game-image" name="game-image" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn">Submit Game</button>
+            </form>
+        </section>
     </div>
-  );
-}
-
+    
+    <footer>
+        <div class="container">
+            <p>GameCite &copy; 2023 - All rights reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple frontend functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would be replaced with actual API calls in a real implementation
+            console.log('GameCite loaded');
+            
+            // Form submission handler
+            const gameForm = document.getElementById('game-form');
+            if (gameForm) {
+                gameForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Game submitted! (This would connect to backend in a real implementation)');
+                    // Here you would collect form data and send to server
+                });
+            }
+            
+            // Navigation would be handled by a frontend framework in a real implementation
+        });
+    </script>
+</body>
+</html>
