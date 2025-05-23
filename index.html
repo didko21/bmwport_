@@ -1,1 +1,39 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { RocketIcon } from "lucide-react";
+import { motion } from "framer-motion";
+
+export default function CoolSite() {
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-8 flex flex-col items-center justify-center">
+      <motion.h1
+        className="text-5xl font-extrabold mb-6 text-center drop-shadow-xl"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Welcome to CoolSite 🚀
+      </motion.h1>
+
+      <motion.p
+        className="text-xl text-center mb-8 max-w-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
+        CoolSite is the best place to launch your next big idea. Modern design, blazing fast, and built for you.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+      >
+        <Button className="text-lg px-6 py-3 bg-white text-indigo-600 hover:bg-gray-100 rounded-2xl shadow-lg">
+          <RocketIcon className="mr-2" /> Get Started
+        </Button>
+      </motion.div>
+    </div>
+  );
+}
 
