@@ -1,18 +1,18 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { RocketIcon } from "lucide-react";
+import { Gamepad2Icon } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function CoolSite() {
+export default function Bmwport() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-8 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 text-white p-8 flex flex-col items-center justify-center">
       <motion.h1
         className="text-5xl font-extrabold mb-6 text-center drop-shadow-xl"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        Welcome to CoolSite 🚀
+        Welcome to Bmwport 🎮
       </motion.h1>
 
       <motion.p
@@ -21,7 +21,7 @@ export default function CoolSite() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        CoolSite is the best place to launch your next big idea. Modern design, blazing fast, and built for you.
+        Bmwport is your ultimate destination to discover and post awesome free games. Dive into fun without spending a dime!
       </motion.p>
 
       <motion.div
@@ -29,11 +29,10 @@ export default function CoolSite() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        <Button className="text-lg px-6 py-3 bg-white text-indigo-600 hover:bg-gray-100 rounded-2xl shadow-lg">
-          <RocketIcon className="mr-2" /> Get Started
+        <Button className="text-lg px-6 py-3 bg-white text-blue-600 hover:bg-gray-100 rounded-2xl shadow-lg">
+          <Gamepad2Icon className="mr-2" /> Explore Games
         </Button>
       </motion.div>
     </div>
   );
 }
-
