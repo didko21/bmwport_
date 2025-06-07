@@ -119,6 +119,8 @@
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .pagination {
@@ -144,6 +146,14 @@
             margin-top: 10px;
             color: var(--text-secondary);
         }
+
+        .tag {
+            background-color: #444;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -155,39 +165,15 @@
     <section class="games-section">
         <h2>Games</h2>
         <div class="search-bar">
-            <input type="text" placeholder="Search by name or description...">
+            <input type="text" id="searchInput" placeholder="Search by name or description...">
         </div>
         
-        <div class="game-list">
-            <!-- Game 1 -->
-          document.querySelectorAll('.download-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const gameTitle = this.parentElement.querySelector('.game-title').textContent;
-        const gameId = this.getAttribute('data-game-id'); // You'd add this to your HTML
+        <div class="game-list" id="gameList">
+            <!-- Games will be dynamically inserted here -->
+        </div>
         
-        // Example download URLs (replace with your actual files)
-        const downloadUrls = {
-            'schedule-1': '/downloads/schedule1.zip',
-            'sons-of-forest': '/downloads/sonsofforest.zip',
-            'ready-or-not': '/downloads/readyornot.zip',
-            'raft': '/downloads/raft.zip'
-        };
-        
-        // Create invisible download link
-        const link = document.createElement('a');
-        link.href = downloadUrls[gameId];
-        link.download = `${gameTitle.replace(/\s+/g, '-').toLowerCase()}.zip`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Track download (optional)
-        console.log(`Downloaded ${gameTitle}`);
-    });
-});
-
         <div class="pagination">
-            <span class="page-number">Previous</span>
+            <span class="page-number" id="prevPage">Previous</span>
             <span class="page-number active">1</span>
             <span class="page-number">2</span>
             <span class="page-number">3</span>
@@ -200,35 +186,162 @@
             <span class="page-number">10</span>
             <span class="page-number">11</span>
             <span class="page-number">12</span>
-            <span class="page-number">Next</span>
+            <span class="page-number" id="nextPage">Next</span>
         </div>
         
         <p class="page-info">Page 1 of 12</p>
     </section>
 
     <script>
-        // You can add JavaScript functionality here
-        document.addEventListener('DOMContentLoaded', function() {
-            // Example: Make download buttons interactive
-            const downloadButtons = document.querySelectorAll('.download-btn');
-            downloadButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const gameTitle = this.parentElement.querySelector('.game-title').textContent;
-                    alert(`Downloading ${gameTitle}...`);
-                });
-            });
+        // Game data
+        const games = [
+            {
+                title: "Schedule I",
+                description: "Build your empire as a drug dealer in a gritty, story-driven open-world crime simulator.",
+                tags: "multiplayer",
+                image: "schedule1.png",
+                link: "https://tpi.li/F9gEZceA",
+                rating: "+3.4"
+            },
+            {
+                title: "Sons Of The Forest",
+                description: "Survive a deadly island filled with mutants using crafting, co-op, and intense exploration mechanics.",
+                tags: "multiplayer",
+                image: "sons-of-the-forest.png",
+                link: "https://tpi.li/SonsOfTheForest",
+                rating: "+1.4"
+            },
+            {
+                title: "Ready Or Not",
+                description: "Lead a SWAT team in realistic tactical missions focused on strategy, teamwork, and precision.",
+                tags: "multiplayer",
+                image: "ready-or-not.png",
+                link: "https://tpi.li/ReadyOrNot",
+                rating: "+1.8"
+            },
+            {
+                title: "Raft",
+                description: "Survive at sea by gathering resources, expanding your raft, and exploring with friends in co-op.",
+                tags: "multiplayer",
+                image: "raft.png",
+                link: "https://tpi.li/Raft",
+                rating: "+2.8"
+            },
+            {
+                title: "Euro Truck Simulator 2",
+                description: "Drive across Europe delivering cargo, customizing trucks, and managing your own growing transport business.",
+                tags: "multiplayer",
+                image: "ets2.png",
+                link: "https://tpi.li/ETS2PP",
+                rating: "+2.1"
+            },
+            {
+                title: "The Forest",
+                description: "Survive a mysterious forest after a plane crash, fighting cannibals and uncovering hidden horrors.",
+                tags: "multiplayer",
+                image: "the-forest.png",
+                link: "https://tpi.li/LeQEch",
+                rating: "+3.2"
+            },
+            {
+                title: "Thief Simulator",
+                description: "Plan, sneak, and steal your way through neighborhoods as a professional, upgradeable thief.",
+                tags: "singleplayer",
+                image: "thief-simulator.png",
+                link: "https://tpi.li/X6djvbVMDI6",
+                rating: "+2.5"
+            },
+            {
+                title: "Portal 2",
+                description: "A puzzle-platform game that uses a portal gun to solve spatial puzzles and advance through the levels.",
+                tags: "multiplayer",
+                image: "portal2.jpg",
+                link: "https://tpi.li/uE0P3Rg9jAi",
+                rating: "+4.7"
+            },
+            {
+                title: "ULTRAKILL",
+                description: "Fast-paced shooting, blood-fueled health, and nonstop action in a brutal retro-style arena.",
+                tags: "singleplayer",
+                image: "ULTRAKILL.jpg",
+                link: "https://tpi.li/uG78",
+                rating: "+4.3"
+            },
+            {
+                title: "Elden Ring",
+                description: "Explore a dark fantasy world, battle deadly foes, and uncover ancient secrets.",
+                tags: "singleplayer",
+                image: "Elden-Ring.jpg",
+                link: "https://tpi.li/EldenRingPP",
+                rating: "+4.9"
+            }
+        ];
+
+        // Function to render games
+        function renderGames(gamesToRender) {
+            const gameList = document.getElementById('gameList');
+            gameList.innerHTML = '';
             
-            // Example: Make pagination interactive
-            const pageNumbers = document.querySelectorAll('.page-number');
-            pageNumbers.forEach(number => {
-                number.addEventListener('click', function() {
-                    if (!this.classList.contains('active')) {
-                        document.querySelector('.page-number.active').classList.remove('active');
-                        this.classList.add('active');
-                        // Here you would typically load new content for the selected page
-                    }
-                });
+            gamesToRender.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                
+                gameCard.innerHTML = `
+                    <h3 class="game-title">${game.title}</h3>
+                    <div class="game-meta">
+                        <span class="must-know">MUSTKNOW</span>
+                        <span class="rating">${game.rating}</span>
+                        <span class="tag">${game.tags}</span>
+                    </div>
+                    <p class="game-description">${game.description}</p>
+                    <a href="${game.link}" class="download-btn" target="_blank">Download</a>
+                `;
+                
+                gameList.appendChild(gameCard);
             });
+        }
+
+        // Initial render
+        renderGames(games);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.description.toLowerCase().includes(searchTerm)
+            );
+            renderGames(filteredGames);
+        });
+
+        // Pagination functionality
+        document.querySelectorAll('.page-number').forEach(number => {
+            number.addEventListener('click', function() {
+                if (!this.classList.contains('active') && !['Previous', 'Next'].includes(this.textContent)) {
+                    document.querySelector('.page-number.active').classList.remove('active');
+                    this.classList.add('active');
+                    // In a real app, you would load the appropriate page of games here
+                }
+            });
+        });
+
+        // Previous/Next buttons
+        document.getElementById('prevPage').addEventListener('click', function() {
+            const current = document.querySelector('.page-number.active');
+            const prev = current.previousElementSibling;
+            if (prev && !prev.id.includes('prevPage')) {
+                current.classList.remove('active');
+                prev.classList.add('active');
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', function() {
+            const current = document.querySelector('.page-number.active');
+            const next = current.nextElementSibling;
+            if (next && !next.id.includes('nextPage')) {
+                current.classList.remove('active');
+                next.classList.add('active');
+            }
         });
     </script>
 </body>
