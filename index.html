@@ -3,280 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bmwport - Free Game Sharing Platform</title>
+    <title>PatchPort - Your Ultimate Gaming Destination</title>
     <style>
-        /* Basic styling */
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary-color: #2a2a2a;
+            --secondary-color: #1a1a1a;
+            --accent-color: #4CAF50;
+            --text-color: #ffffff;
+            --text-secondary: #aaaaaa;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 20px;
         }
         
         header {
-            background: #35424a;
-            color: #ffffff;
-            padding: 20px 0;
-            text-align: center;
+            margin-bottom: 30px;
         }
         
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            color: var(--accent-color);
         }
         
-        nav {
-            background: #e8491d;
-            color: #ffffff;
-            padding: 10px 0;
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
         
-        nav ul {
-            padding: 0;
-            list-style: none;
-            text-align: center;
+        .search-bar {
+            margin-bottom: 30px;
         }
         
-        nav ul li {
-            display: inline;
-            margin: 0 20px;
+        .search-bar input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--secondary-color);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1rem;
         }
         
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
+        .search-bar input::placeholder {
+            color: #666;
+        }
+        
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
         .game-card {
-            background: #ffffff;
-            margin: 20px 0;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
         }
         
-        .game-card h3 {
-            margin-top: 0;
-            color: #e8491d;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #e8491d;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        
-        .btn:hover {
-            background: #333;
-        }
-        
-        footer {
-            background: #35424a;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px 0;
+        .game-card::after {
+            content: "";
+            display: block;
+            height: 1px;
+            background-color: #444;
             margin-top: 20px;
         }
         
-        /* Form styling */
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
+        .game-title {
+            font-size: 1.5rem;
             margin-bottom: 5px;
         }
         
-        .form-group input, 
-        .form-group textarea, 
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .game-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .must-know {
+            background-color: #333;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .game-description {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .download-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .page-number {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .page-number.active {
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .page-info {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>BMW port</h1>
-            <p>Share and discover free games</p>
-        </div>
+        <h1>Welcome to PatchPort</h1>
+        <p class="subtitle">Your Ultimate Gaming Destination</p>
     </header>
     
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Browse Games</a></li>
-                <li><a href="#">Submit Game</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
+    <section class="games-section">
+        <h2>Games</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Search by name or description...">
         </div>
-    </nav>
-    
-    <div class="container">
-        <section id="featured-games">
-            <h2>Featured Games</h2>
-            
-  return (
-    <section className="games-container">
-      <h1>Available Games</h1>
-      
-      <div className="games-grid">
-        {games.map(game => (
-          <div className="game-card" key={game.id}>
-            <h3>{game.title}</h3>
-            <p>{game.description}</p>
-            <p><strong>Genre:</strong> {game.genre}</p>
-            <p><strong>Platform:</strong> {game.platforms}</p>
-            <div className="game-buttons">
-              <a href={game.downloadLink} className="btn" target="_blank" rel="noopener noreferrer">
-                Download
-              </a>
-              <Link to={game.detailLink} className="btn">
-                View Details
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-
-  return (
-    <section className="container">
-      <h2>Available Games</h2>
-      
-      {games.map(game => (
-        <div className="game-card" key={game.id}>
-          <h3>{game.title}</h3>
-          <p>{game.description}</p>
-          <p><strong>Genre:</strong> {game.genre}</p>
-          <p><strong>Platform:</strong> {game.platforms}</p>
-          <Link to={game.downloadLink} className="btn">Download</Link>
-          <Link to={game.detailLink} className="btn">View Details</Link>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-export default Games;
         
-       const FeaturedGame = ({ game }) => (
-  <div className="game-card">
-    <h2>{game.title}</h2>
-    <p className="description">{game.description}</p>
-    <div className="divider"></div>
-    <div className="game-meta">
-      <p><strong>Genre:</strong> {game.genre}</p>
-      <p><strong>Platform:</strong> {game.platforms}</p>
-    </div>
-    <div className="game-actions">
-      <button className="download-btn">Download</button>
-      <button className="details-btn">View Details</button>
-    </div>
-    <div className="download-info">
-      <span className="file-size">{game.fileSize}</span>
-    </div>
-  </div>
-);
+        <div class="game-list">
+            <!-- Game 1 -->
+            <div class="game-card">
+                <h3 class="game-title">Schedule I</h3>
+                <div class="game-meta">
+                    <span class="must-know">MUSTKNOW</span>
+                    <span class="rating">+3.4</span>
+                </div>
+                <p class="game-description">
+                    Build your empire as a drug dealer in a gritty, story-driven open-world crime simulator.
+                </p>
+                <button class="download-btn">Download</button>
+            </div>
+            
+            <!-- Game 2 -->
+            <div class="game-card">
+                <h3 class="game-title">Sons Of The Forest</h3>
+                <div class="game-meta">
+                    <span class="must-know">MUSTKNOW</span>
+                    <span class="rating">+1.4</span>
+                </div>
+                <p class="game-description">
+                    Survive a deadly island filled with mutants using crafting, co-op, and intense exploration mechanics.
+                </p>
+                <button class="download-btn">Download</button>
+            </div>
+            
+            <!-- Game 3 -->
+            <div class="game-card">
+                <h3 class="game-title">Ready Or Not</h3>
+                <div class="game-meta">
+                    <span class="must-know">MUSTKNOW</span>
+                    <span class="rating">+1.8</span>
+                </div>
+                <p class="game-description">
+                    Lead a SWAT team in realistic tactical missions focused on strategy, teamwork, and precision.
+                </p>
+                <button class="download-btn">Download</button>
+            </div>
+            
+            <!-- Game 4 -->
+            <div class="game-card">
+                <h3 class="game-title">Raft</h3>
+                <div class="game-meta">
+                    <span class="must-know">MUSTKNOW</span>
+                    <span class="rating">+2.8</span>
+                </div>
+                <p class="game-description">
+                    Survive at sea by gathering resources, expanding your raft, and exploring with friends in co-op.
+                </p>
+                <button class="download-btn">Download</button>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <span class="page-number">Previous</span>
+            <span class="page-number active">1</span>
+            <span class="page-number">2</span>
+            <span class="page-number">3</span>
+            <span class="page-number">4</span>
+            <span class="page-number">5</span>
+            <span class="page-number">6</span>
+            <span class="page-number">7</span>
+            <span class="page-number">8</span>
+            <span class="page-number">9</span>
+            <span class="page-number">10</span>
+            <span class="page-number">11</span>
+            <span class="page-number">12</span>
+            <span class="page-number">Next</span>
+        </div>
+        
+        <p class="page-info">Page 1 of 12</p>
+    </section>
 
-// CSS (you can use a separate CSS file or styled-components)
-/*
-.game-card {
-  background: #1a1a1a;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 300px;
-  margin: 10px;
-}
-
-.game-card h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
-.description {
-  color: #aaa;
-  font-size: 0.9rem;
-}
-
-.divider {
-  height: 1px;
-  background: #333;
-  margin: 15px 0;
-}
-
-.game-meta p {
-  margin: 5px 0;
-  font-size: 0.8rem;
-}
-
-.game-actions {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.download-btn, .details-btn {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.download-btn {
-  background: #4CAF50;
-  color: white;
-}
-
-.details-btn {
-  background: #333;
-  color: white;
-}
-
-.download-info {
-  text-align: right;
-}
-
-.file-size {
-  font-size: 0.8rem;
-  color: #777;
-}
-*/
-        // Simple frontend functionality
+    <script>
+        // You can add JavaScript functionality here
         document.addEventListener('DOMContentLoaded', function() {
-            // This would be replaced with actual API calls in a real implementation
-            console.log('GameCite loaded');
-            
-            // Form submission handler
-            const gameForm = document.getElementById('game-form');
-            if (gameForm) {
-                gameForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Game submitted! (This would connect to backend in a real implementation)');
-                    // Here you would collect form data and send to server
+            // Example: Make download buttons interactive
+            const downloadButtons = document.querySelectorAll('.download-btn');
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const gameTitle = this.parentElement.querySelector('.game-title').textContent;
+                    alert(`Downloading ${gameTitle}...`);
                 });
-            }
+            });
             
-            // Navigation would be handled by a frontend framework in a real implementation
+            // Example: Make pagination interactive
+            const pageNumbers = document.querySelectorAll('.page-number');
+            pageNumbers.forEach(number => {
+                number.addEventListener('click', function() {
+                    if (!this.classList.contains('active')) {
+                        document.querySelector('.page-number.active').classList.remove('active');
+                        this.classList.add('active');
+                        // Here you would typically load new content for the selected page
+                    }
+                });
+            });
         });
     </script>
 </body>
