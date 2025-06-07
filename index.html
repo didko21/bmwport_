@@ -148,7 +148,7 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to PatchPort</h1>
+        <h1>Welcome to BMWPORT</h1>
         <p class="subtitle">Your Ultimate Gaming Destination</p>
     </header>
     
@@ -160,58 +160,32 @@
         
         <div class="game-list">
             <!-- Game 1 -->
-            <div class="game-card">
-                <h3 class="game-title">Schedule I</h3>
-                <div class="game-meta">
-                    <span class="must-know">MUSTKNOW</span>
-                    <span class="rating">+3.4</span>
-                </div>
-                <p class="game-description">
-                    Build your empire as a drug dealer in a gritty, story-driven open-world crime simulator.
-                </p>
-                <button class="download-btn">Download</button>
-            </div>
-            
-            <!-- Game 2 -->
-            <div class="game-card">
-                <h3 class="game-title">Sons Of The Forest</h3>
-                <div class="game-meta">
-                    <span class="must-know">MUSTKNOW</span>
-                    <span class="rating">+1.4</span>
-                </div>
-                <p class="game-description">
-                    Survive a deadly island filled with mutants using crafting, co-op, and intense exploration mechanics.
-                </p>
-                <button class="download-btn">Download</button>
-            </div>
-            
-            <!-- Game 3 -->
-            <div class="game-card">
-                <h3 class="game-title">Ready Or Not</h3>
-                <div class="game-meta">
-                    <span class="must-know">MUSTKNOW</span>
-                    <span class="rating">+1.8</span>
-                </div>
-                <p class="game-description">
-                    Lead a SWAT team in realistic tactical missions focused on strategy, teamwork, and precision.
-                </p>
-                <button class="download-btn">Download</button>
-            </div>
-            
-            <!-- Game 4 -->
-            <div class="game-card">
-                <h3 class="game-title">Raft</h3>
-                <div class="game-meta">
-                    <span class="must-know">MUSTKNOW</span>
-                    <span class="rating">+2.8</span>
-                </div>
-                <p class="game-description">
-                    Survive at sea by gathering resources, expanding your raft, and exploring with friends in co-op.
-                </p>
-                <button class="download-btn">Download</button>
-            </div>
-        </div>
+          document.querySelectorAll('.download-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const gameTitle = this.parentElement.querySelector('.game-title').textContent;
+        const gameId = this.getAttribute('data-game-id'); // You'd add this to your HTML
         
+        // Example download URLs (replace with your actual files)
+        const downloadUrls = {
+            'schedule-1': '/downloads/schedule1.zip',
+            'sons-of-forest': '/downloads/sonsofforest.zip',
+            'ready-or-not': '/downloads/readyornot.zip',
+            'raft': '/downloads/raft.zip'
+        };
+        
+        // Create invisible download link
+        const link = document.createElement('a');
+        link.href = downloadUrls[gameId];
+        link.download = `${gameTitle.replace(/\s+/g, '-').toLowerCase()}.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Track download (optional)
+        console.log(`Downloaded ${gameTitle}`);
+    });
+});
+
         <div class="pagination">
             <span class="page-number">Previous</span>
             <span class="page-number active">1</span>
