@@ -178,72 +178,89 @@
 
 export default Games;
         
-        <section id="submit-game" style="display: none;">
-            <h2>Submit Your Game</h2>
-            <form id="game-form">
-                <div class="form-group">
-                    <label for="game-title">Game Title</label>
-                    <input type="text" id="game-title" name="game-title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="game-description">Description</label>
-                    <textarea id="game-description" name="game-description" rows="5" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="game-genre">Genre</label>
-                    <select id="game-genre" name="game-genre" required>
-                        <option value="">Select a genre</option>
-                        <option value="action">Action</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="puzzle">Puzzle</option>
-                        <option value="rpg">RPG</option>
-                        <option value="simulation">Simulation</option>
-                        <option value="strategy">Strategy</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>Platforms</label>
-                    <div>
-                        <input type="checkbox" id="platform-windows" name="platform[]" value="windows">
-                        <label for="platform-windows">Windows</label>
-                        
-                        <input type="checkbox" id="platform-mac" name="platform[]" value="mac">
-                        <label for="platform-mac">Mac</label>
-                        
-                        <input type="checkbox" id="platform-linux" name="platform[]" value="linux">
-                        <label for="platform-linux">Linux</label>
-                        
-                        <input type="checkbox" id="platform-web" name="platform[]" value="web">
-                        <label for="platform-web">Web</label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="game-file">Game File (ZIP)</label>
-                    <input type="file" id="game-file" name="game-file" accept=".zip" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="game-image">Screenshot</label>
-                    <input type="file" id="game-image" name="game-image" accept="image/*" required>
-                </div>
-                
-                <button type="submit" class="btn">Submit Game</button>
-            </form>
-        </section>
+       const FeaturedGame = ({ game }) => (
+  <div className="game-card">
+    <h2>{game.title}</h2>
+    <p className="description">{game.description}</p>
+    <div className="divider"></div>
+    <div className="game-meta">
+      <p><strong>Genre:</strong> {game.genre}</p>
+      <p><strong>Platform:</strong> {game.platforms}</p>
     </div>
-    
-    <footer>
-        <div class="container">
-            <p>GameCite &copy; 2023 - All rights reserved</p>
-        </div>
-    </footer>
-    
-    <script>
+    <div className="game-actions">
+      <button className="download-btn">Download</button>
+      <button className="details-btn">View Details</button>
+    </div>
+    <div className="download-info">
+      <span className="file-size">{game.fileSize}</span>
+    </div>
+  </div>
+);
+
+// CSS (you can use a separate CSS file or styled-components)
+/*
+.game-card {
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  margin: 10px;
+}
+
+.game-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.description {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.divider {
+  height: 1px;
+  background: #333;
+  margin: 15px 0;
+}
+
+.game-meta p {
+  margin: 5px 0;
+  font-size: 0.8rem;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.download-btn, .details-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.details-btn {
+  background: #333;
+  color: white;
+}
+
+.download-info {
+  text-align: right;
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: #777;
+}
+*/
         // Simple frontend functionality
         document.addEventListener('DOMContentLoaded', function() {
             // This would be replaced with actual API calls in a real implementation
