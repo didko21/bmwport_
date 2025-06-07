@@ -1,43 +1,83 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-function Games() {
-  const extractFileId = (url) => {
-    const match = url.match(/\/file\/d\/([^\/]+)/);
-    return match ? match[1] : null;
-  };
-
-  const games = [
-    {
-      id: 1,
-      title: "Internet cafe simulator 2",
-      description: "Survive the zombie apocalypse in this action-packed game.",
-      genre: "Action, Survival",
-      platforms: "Windows, Linux",
-      downloadLink: "https://drive.google.com/file/d/1ckpWXwNTK3k2YF_IMvoF_Xqt6-2HbZ/view?usp=drive_link",
-      detailLink: "/game41"
-    }
-    // ... other games
-  ];
-
-  return (
-    <div className="games-container">
-      {games.map(game => (
-        <div key={game.id} className="game-card">
-          {/* ... other game info ... */}
-          <a 
-            href={`https://drive.google.com/uc?export=download&id=${extractFileId(game.downloadLink)}`}
-            className="download-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-          >
-            Download
-          </a>
-        </div>
-      ))}
+const FeaturedGame = ({ game }) => (
+  <div className="game-card">
+    <h2>{game.title}</h2>
+    <p className="description">{game.description}</p>
+    <div className="divider"></div>
+    <div className="game-meta">
+      <p><strong>Genre:</strong> {game.genre}</p>
+      <p><strong>Platform:</strong> {game.platforms}</p>
     </div>
-  );
+    <div className="game-actions">
+      <button className="download-btn">Download</button>
+      <button className="details-btn">View Details</button>
+    </div>
+    <div className="download-info">
+      <span className="file-size">{game.fileSize}</span>
+    </div>
+  </div>
+);
+
+// CSS (you can use a separate CSS file or styled-components)
+/*
+.game-card {
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  margin: 10px;
 }
 
-export default Games;
+.game-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.description {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.divider {
+  height: 1px;
+  background: #333;
+  margin: 15px 0;
+}
+
+.game-meta p {
+  margin: 5px 0;
+  font-size: 0.8rem;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.download-btn, .details-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.details-btn {
+  background: #333;
+  color: white;
+}
+
+.download-info {
+  text-align: right;
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: #777;
+}
+*/
