@@ -1,1 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone - Download Games & Chat</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #16213e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f05454;
+            text-shadow: 0 0 10px rgba(240, 84, 84, 0.5);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #e6e6e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #f05454;
+            background-color: rgba(240, 84, 84, 0.1);
+        }
 
+        /* Social Media Buttons */
+        .discord-btn {
+            background-color: #5865F2;
+            color: white !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .discord-btn:hover {
+            background-color: #4752C4 !important;
+            color: white !important;
+        }
+
+        .tiktok-btn {
+            background-color: #000000;
+            color: white !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tiktok-btn:hover {
+            background-color: #333333 !important;
+            color: white !important;
+        }
+
+        .tiktok-btn::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .tiktok-btn:hover::before {
+            left: 100%;
+            opacity: 1;
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #f05454;
+            border-bottom: 2px solid #f05454;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Games Section */
+        .game-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background-color: #0f3460;
+            color: #e6e6e6;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover {
+            background-color: #f05454;
+        }
+        
+        .category-btn.active {
+            background-color: #f05454;
+            font-weight: bold;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .game-card {
+            background-color: #16213e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .game-card h3 {
+            margin: 1rem 0;
+            padding: 0 1rem;
+        }
+        
+        .game-card h3 a {
+            color: #f8f8f8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .game-card h3 a:hover {
+            color: #f05454;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            margin: 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+        
+        /* Forum Section */
+        .forum-topics {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .forum-topic {
+            background-color: #16213e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .forum-topic:hover {
+            transform: translateX(5px);
+        }
+        
+        .forum-topic-info h3 {
+            color: #f8f8f8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .forum-topic-info p {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+        
+        .forum-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 1.5rem;
+            background-color: #f05454;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .forum-btn:hover {
+            background-color: #ff7676;
+        }
+        
+        /* Chat System */
+        .chat-container {
+            position: fixed;
+            bottom: 0;
+            right: 2rem;
+            width: 350px;
+            background-color: #16213e;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .chat-container.chat-collapsed {
+            height: 40px !important;
+        }
+        
+        .chat-container.chat-collapsed .chat-body {
+            display: none;
+        }
+        
+        .chat-header {
+            padding: 0.7rem 1rem;
+            background-color: #f05454;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .chat-toggle {
+            font-size: 1.2rem;
+        }
+        
+        .chat-body {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #0f3460;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            max-width: 80%;
+        }
+        
+        .message.user {
+            background-color: #f05454;
+            margin-left: auto;
+        }
+        
+        .message.other {
+            background-color: #1a1a2e;
+            margin-right: auto;
+        }
+        
+        .message-sender {
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .message-text {
+            word-wrap: break-word;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 0.5rem;
+            background-color: #16213e;
+            border-top: 1px solid #0f3460;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #0f3460;
+            color: white;
+        }
+        
+        .chat-input input:focus {
+            outline: none;
+            background-color: #1a1a2e;
+        }
+        
+        .chat-input button {
+            margin-left: 0.5rem;
+            padding: 0.7rem 1rem;
+            background-color: #f05454;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: #ff7676;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .chat-container {
+                width: 100%;
+                right: 0;
+                border-radius: 0;
+            }
+        }
+
+        /* Social Media Icons */
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <div class="logo">GameZone</div>
+        <nav>
+            <ul>
+                <li><a href="#games">Download Games</a></li>
+                <li><a href="#forum">Forum</a></li>
+                <li><a href="#chat">Chat</a></li>
+                <!-- Add social media buttons -->
+                <li><a href="https://discord.gg/" target="_blank" class="discord-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord" class="social-icon">
+                    Discord
+                </a></li>
+                <li><a href="https://tiktok.com/" target="_blank" class="tiktok-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png" alt="TikTok" class="social-icon">
+                    TikTok
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Games Section -->
+        <section id="games">
+            <h2>Download Games</h2>
+            <div class="game-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="action">Action</button>
+                <button class="category-btn" data-category="adventure">Adventure</button>
+                <button class="category-btn" data-category="puzzle">Puzzle</button>
+            </div>
+            <div class="games-grid" id="games-container">
+                <!-- Games will be loaded here via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Forum Section -->
+        <section id="forum">
+            <h2>Gamer Forum</h2>
+            <div class="forum-topics">
+                <div class="forum-topic">
+                    <div class="forum-topic-info">
+                        <h3>What are you playing right now?</h3>
+                        <p>Last reply: 2 hours ago | 45 replies</p>
+                    </div>
+                </div>
+                <div class="forum-topic">
+                    <div class="forum-topic-info">
+                        <h3>Beginner Tips for Elden Ring</h3>
+                        <p>Last reply: yesterday | 128 replies</p>
+                    </div>
+                </div>
+                <div class="forum-topic">
+                    <div class="forum-topic-info">
+                        <h3>Upcoming Game Releases</h3>
+                        <p>Last reply: 3 days ago | 32 replies</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="forum-btn">View All Topics</a>
+        </section>
+    </main>
+
+    <!-- Chat System -->
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header" id="chat-header">
+            <span>Gamer Chat</span>
+            <span id="chat-toggle">▲</span>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <button id="chat-send">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Game Data with download links
+        const gamesData = [
+            {
+                id: 1,
+                title: "Space Battle",
+                category: "action",
+                image: "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "An action game in space with lots of shooting and explosions!",
+                downloadUrl: "#",
+                fileSize: "1.2 GB"
+            },
+            {
+                id: 2,
+                title: "Treasure Hunt",
+                category: "adventure",
+                image: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "An adventure game full of treasure hunting and puzzles.",
+                downloadUrl: "#",
+                fileSize: "850 MB"
+            },
+            {
+                id: 3,
+                title: "Quick Reflexes",
+                category: "action",
+                image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "Test your reflexes in this fast-paced action game.",
+                downloadUrl: "#",
+                fileSize: "750 MB"
+            },
+            {
+                id: 4,
+                title: "Magic Puzzles",
+                category: "puzzle",
+                image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "Solve magical puzzles and unlock ancient mechanisms.",
+                downloadUrl: "#",
+                fileSize: "500 MB"
+            },
+            {
+                id: 5,
+                title: "Jungle Adventure",
+                category: "adventure",
+                image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "Embark on an incredible adventure in the heart of the jungle.",
+                downloadUrl: "#",
+                fileSize: "1.5 GB"
+            },
+            {
+                id: 6,
+                title: "Number Puzzles",
+                category: "puzzle",
+                image: "https://images.unsplash.com/photo-1589254065909-b7086229d08c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                description: "Puzzle game with numbers that will make you think.",
+                downloadUrl: "#",
+                fileSize: "300 MB"
+            }
+        ];
+
+        // Sample chat messages
+        const sampleMessages = [
+            { sender: "Admin", text: "Welcome to the GameZone chat!", type: "other" },
+            { sender: "Peter", text: "Hi! Is anyone playing Elden Ring?", type: "other" },
+            { sender: "Maria", text: "I started it yesterday, it's really hard!", type: "other" },
+            { sender: "Alex", text: "Check out the new Space Battle game in the Games section!", type: "other" }
+        ];
+
+        // DOM Elements
+        const gamesContainer = document.getElementById('games-container');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const chatContainer = document.getElementById('chat-container');
+        const chatHeader = document.getElementById('chat-header');
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatBody = document.getElementById('chat-body');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+
+        // Forum topic click functionality
+        const forumTopics = document.querySelectorAll('.forum-topic');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayGames(gamesData);
+            setupCategoryFilters();
+            setupChat();
+            loadSampleMessages();
+            setupForumTopics();
+        });
+
+        // Display games in the games section
+        function displayGames(games) {
+            gamesContainer.innerHTML = '';
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}">
+                    <h3><a href="${game.downloadUrl}" title="Download ${game.title}">${game.title}</a></h3>
+                    <p class="game-description">${game.description}</p>
+                    <p class="file-size">File size: ${game.fileSize}</p>
+                    <a href="${game.downloadUrl}" class="download-btn" data-id="${game.id}">Download</a>
+                `;
+                gamesContainer.appendChild(gameCard);
+            });
+
+            // Add event listeners to download buttons
+            document.querySelectorAll('.download-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const gameId = parseInt(this.getAttribute('data-id'));
+                    const game = gamesData.find(g => g.id === gameId);
+                    if (game) {
+                        showDownloadModal(game);
+                    }
+                });
+            });
+        }
+
+        // Filter games by category
+        function setupCategoryFilters() {
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.getAttribute('data-category');
+                    let filteredGames;
+                    
+                    if (category === 'all') {
+                        filteredGames = gamesData;
+                    } else {
+                        filteredGames = gamesData.filter(game => game.category === category);
+                    }
+                    
+                    displayGames(filteredGames);
+                });
+            });
+        }
+
+        // Setup chat functionality
+        function setupChat() {
+            // Toggle chat collapse/expand
+            chatHeader.addEventListener('click', function() {
+                chatContainer.classList.toggle('chat-collapsed');
+                chatToggle.textContent = chatContainer.classList.contains('chat-collapsed') ? '▼' : '▲';
+            });
+
+            // Send message on button click
+            chatSend.addEventListener('click', sendMessage);
+
+            // Send message on Enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        // Load sample chat messages
+        function loadSampleMessages() {
+            sampleMessages.forEach(message => {
+                addMessage(message.sender, message.text, message.type);
+            });
+        }
+
+        // Add a message to the chat
+        function addMessage(sender, text, type) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}`;
+            messageElement.innerHTML = `
+                <div class="message-sender">${sender}</div>
+                <div class="message-text">${text}</div>
+            `;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send a chat message
+        function sendMessage() {
+            const messageText = chatInput.value.trim();
+            if (messageText) {
+                addMessage("You", messageText, "user");
+                chatInput.value = '';
+                
+                // Simulate a response after a short delay
+                setTimeout(() => {
+                    const responses = [
+                        "That's interesting!",
+                        "I haven't played that one yet.",
+                        "Nice! What platform are you playing on?",
+                        "I'm more into puzzle games myself.",
+                        "Have you checked out the new releases?"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage("GameBot", randomResponse, "other");
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        // Setup forum topic functionality
+        function setupForumTopics() {
+            forumTopics.forEach(topic => {
+                topic.addEventListener('click', function() {
+                    const topicTitle = this.querySelector('h3').textContent;
+                    alert(`Viewing topic: ${topicTitle}\nThis would open the forum thread in a real implementation.`);
+                });
+            });
+        }
+
+        // Show download modal
+        function showDownloadModal(game) {
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '2000';
+            
+            modal.innerHTML = `
+                <div style="background: #16213e; padding: 2rem; border-radius: 8px; max-width: 500px; text-align: center;">
+                    <h2 style="color: #f05454; margin-bottom: 1rem;">Download ${game.title}</h2>
+                    <p style="margin-bottom: 0.5rem;">${game.description}</p>
+                    <p style="margin-bottom: 1.5rem;"><strong>File size:</strong> ${game.fileSize}</p>
+                    <div style="display: flex; justify-content: center; gap: 1rem;">
+                        <a href="${game.downloadUrl}" id="confirm-download-btn" style="padding: 0.7rem 1.5rem; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; text-decoration: none;">Confirm Download</a>
+                        <button id="close-modal-btn" style="padding: 0.7rem 1.5rem; background: #0f3460; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Add event listener to close button
+            modal.querySelector('#close-modal-btn').addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+        }
+    </script>
+</body>
+</html>
